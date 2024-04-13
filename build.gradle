@@ -1,6 +1,8 @@
 plugins {
 	id 'fabric-loom' version '1.6-SNAPSHOT'
 	id 'maven-publish'
+	id 'com.github.johnrengelman.shadow' version '8.1.1'
+	id "de.undercouch.download" version "5.6.0"
 }
 
 configurations {
@@ -15,20 +17,28 @@ base {
 	archivesName = project.archives_base_name
 }
 
+java {
+	sourceCompatibility = JavaVersion.VERSION_17
+	targetCompatibility = JavaVersion.VERSION_17
+}
+
 repositories {
 		maven { url 'https://repo.hypixel.net/repository/Hypixel/' }
 }
 
 dependencies {
-	// To change the versions see the gradle.properties file
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
 	mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
 	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
-	// Fabric API. This is technically optional, but you probably want it anyway.
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
 	shadow 'net.hypixel:mod-api:0.3.1'
+}
+
+tasks.register('downloadModApiLicense', Download) {
+	src 'https://raw.githubusercontent.com/HypixelDev/ModAPI/v0.3.1/LICENSE'
+	dest layout.buildDirectory.file("tmp/LICENSE_Hypixel_ModAPI")
 }
 
 processResources {
@@ -43,6 +53,17 @@ tasks.withType(JavaCompile).configureEach {
 	it.options.release = 17
 }
 
-jar {
+shadowJar {
+	dependsOn jar
+	configurations = [project.configurations.shadow]
+	archiveClassifier = 'dev'
+	relocate "net.hypixel", "dev.ecr.shadow.net.hypixel"
+}
+
+remapJar {
+	dependsOn downloadModApiLicense
+	dependsOn tasks.shadowJar
+	inputFile = shadowJar.archiveFile
 	from "LICENSE"
+	from layout.buildDirectory.file("tmp/LICENSE_Hypixel_ModAPI")
 }
