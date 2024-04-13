@@ -43,8 +43,9 @@ public class HyprotoPacketArgumentRunner implements Command<FabricClientCommandS
 
         context.getSource().sendFeedback(Text.literal("Sending %s packet".formatted(submittedPacket)).withColor(HyprotoExperimentation.CHAT_COLOR));
 
-        // This is where we're actually sending the packet to the server. All
-        // current packets don't take any arguments, hence the empty build call.
+        // This is where we're actually sending the packet to the server. We call their factory with any arguments that
+        // were provided, however all currently available packets don't take any arguments, so all of their factories
+        // just ignore this.
         final PacketByteBuf buf = PacketByteBufs.create();
         final PacketSerializer serializer = new PacketSerializer(buf);
         // no NPE due to verification that all factories existed at initialization
