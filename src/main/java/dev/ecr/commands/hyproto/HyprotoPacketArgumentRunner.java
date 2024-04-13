@@ -26,7 +26,6 @@ public class HyprotoPacketArgumentRunner implements Command<FabricClientCommandS
         try {
             packetArgsRaw = context.getArgument("args", String.class);
         } catch(IllegalArgumentException ignored) {
-            System.out.println("No args");
             // A missing args argument just means that no arguments were passed
         }
         String[] packetArgs;
