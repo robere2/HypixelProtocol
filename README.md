@@ -26,3 +26,14 @@ The `/hyproto` command has support for additional arguments for each packet, but
 take any arguments.
 
 This command will not do anything if ran in singleplayer or on a server other than Hypixel.
+
+## Development
+
+Steps to running this project in a development environment:
+
+1. Install Java 17 or higher. If you're running this project through an IDE, it may take care of this step for you.
+2. Install the [Auth Me](https://www.curseforge.com/minecraft/mc-mods/auth-me) mod into the `/run/mods` folder. You will need this in order to authenticate and connect to Hypixel.
+3. Run `gradlew runClient` to start the client.
+
+I have tested these steps with Java 21 on a Windows 11 installation. I cannot guarantee whether they will work for all 
+systems and Java versions.
