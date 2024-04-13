@@ -1,0 +1,32 @@
+{
+	"schemaVersion": 1,
+	"id": "hyproto_experimentation",
+	"version": "${version}",
+	"name": "Hypixel Modding Protocol Experimentation",
+	"description": "Simple playground for experimenting with the new Hypixel modding protocol",
+	"authors": [
+		"bugfroggy"
+	],
+	"license": "MIT",
+	"environment": "client",
+	"entrypoints": {
+		"client": [
+			"dev.ecr.HyprotoExperimentation"
+		]
+	},
+	"mixins": [
+		{
+			"config": "hyproto_experimentation.client.mixins.json",
+			"environment": "client"
+		}
+	],
+	"depends": {
+		"fabricloader": ">=0.15.9",
+		"minecraft": "~1.20.4",
+		"java": ">=17",
+		"fabric-api": "*"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
+}
