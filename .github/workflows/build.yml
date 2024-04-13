@@ -35,4 +35,6 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: Artifacts
-          paths: 'build/libs/*.jar', '!build/libs/*-dev.jar'
+          paths: |
+            build/libs/*.jar
+            !build/libs/*-dev.jar
